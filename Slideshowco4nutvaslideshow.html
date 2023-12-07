@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.container {
+    max-width: 1408px;
+    margin: auto;
+}
+.container img {
+    width: 50%;
+    height: 500px;
+}
+</style>
+<body onload="Load_anh()">
+    <div id="layout" class="container">
+        <img src="" alt="" name="img_anh">
+        <p><span id="span">1</span>/5</p>
+        <button onclick="Pre()">Pre</button>
+        <button onclick="Stop()">Stop</button>
+        <button onclick="Start()">Start</button>
+        <button onclick="Next()">Next</button>
+    </div>
+    <script>
+        var mang_anh = [];
+        var thU_tu = 0
+        var span = document.getElementById("span");
+        var intervarl
+        function Load_anh() {
+            var anh = [
+                "anh1.jpg",
+                "anh2.jpg",
+                "anh3.jpg",
+                "anh4.jpg",
+                "anh5.jpg",
+            ]
+            const imgFolderName = "image/"
+            anh.forEach(function(e) {
+                 doi_tuong = new Image()
+                doi_tuong.src = imgFolderName + e
+                mang_anh.push(doi_tuong)
+            })
+            document.img_anh.src = mang_anh[thU_tu].src
+        }
+        function Pre() {
+            thU_tu--
+            if(thU_tu <= 0) {
+                thU_tu = mang_anh.length-1
+            }
+            document.img_anh.src = mang_anh[thU_tu].src
+            span.innerHTML = thU_tu + 1
+        }
+        function Next () {
+            thU_tu++
+            if(thU_tu >=  mang_anh.length) {
+                thU_tu = 0
+            }
+            document.img_anh.src = mang_anh[thU_tu].src
+            span.innerHTML = thU_tu + 1
+        }
+        function Start () {
+            if(intervarl == undefined) {
+                intervarl = setInterval(function() {
+                    Next()
+                }, 1000)
+            }
+        }
+        function Stop() {
+            clearInterval(intervarl)
+            intervarl = undefined
+        }
+        // Thêm hàm tự động chuyển ảnh sau một khoảng thời gian
+        // function AutoChangeImage(seconds) {
+        //     interval = setInterval(function () {
+        //         Next();
+        //     }, seconds * 1000);
+        // }
+        
+        // // Bắt đầu tự động chuyển ảnh sau 2 giây (có thể thay đổi số giây theo mong muốn)
+        // AutoChangeImage(2);
+    </script>
+</body>
+</html>
