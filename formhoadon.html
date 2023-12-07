@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="productForm" onsubmit="validateForm(); return false">
+        <div>
+            <label for="tenKh">Khách hàng</label>
+            <input type="text" id="tenKh">
+            <span id="tenKhError" class="error"></span>
+        </div>
+        <div>
+            <label for="loaiHang">Loại hàng</label>
+            <select name="" id="loaiHang">
+                <option value="" hidden>Mời chọn</option>
+                <option value="Loại 1">Loại 1</option>
+                <option value="Loại 2">Loại 2</option>
+                <option value="Loại 3">Loại 3</option>
+            </select>
+            <span id="loaiHangError" class="error"></span>
+        </div>
+        <div>
+            <label for="donGia">Đơn giá</label>
+            <input type="number" id="donGia" oninput="calculateTotal()">
+            <span id="donGiaError" class="error"></span>
+        </div>
+        <div>
+            <label for="soLuong">Số lượng</label>
+            <input type="number" id="soLuong" oninput="calculateTotal()">
+            <span id="soLuongError" class="error"></span>
+        </div>
+        <div>
+            <label for="thanhTien">Thành tiền</label>
+            <input type="number" id="thanhTien" readonly>
+            <span id="thanhTienError" class="error"></span>
+        </div>
+        <div>
+            <label for="diaChi">Nơi nhận hàng</label>
+            <input type="radio" name="diaChi" id="noithanh" onclick="updateShippingFee(0); calculateTotal()">
+            <label for="noithanh">Nội thành</label>
+            <input type="radio" name="diaChi" id="ngoaithanh" onclick="updateShippingFee(20); calculateTotal()">
+            <label for="ngoaithanh">Ngoại thành</label>
+            <span id="diaChiError" class="error"></span>
+        </div>
+        <div>
+            <label for="vanchuyen">Phí vận chuyển</label>
+            <input type="text" id="vanchuyen" readonly>
+            <span id="vanchuyError" class="error"></span>
+        </div>
+        <button type="submit">Đặt hàng</button>
+    </form>
+    <script>
+        function calculateTotal() {
+            var donGia = parseFloat(document.getElementById('donGia').value) || 0;
+            var soLuong = parseInt(document.getElementById('soLuong').value) || 0;
+            var vanchuyen = parseFloat(document.getElementById('vanchuyen').value) || 0;
+
+            var thanhTien = donGia * soLuong + vanchuyen;
+            document.getElementById('thanhTien').value = thanhTien;
+        }
+        function validateForm() {
+            resetErrors();
+
+            var tenKh = document.getElementById('tenKh').value;
+            var loaiHang = document.getElementById('loaiHang').value;
+            var donGia = document.getElementById('donGia').value;
+            var soLuong = document.getElementById('soLuong').value;
+            var thanhTien = document.getElementById('thanhTien').value;
+            var diaChi = document.querySelector('input[name="diaChi"]:checked');
+
+            if (tenKh.trim() === "") {
+                document.getElementById('tenKhError').innerHTML = 'Khách hàng không được bỏ trống';
+            }
+
+            if (loaiHang === "") {
+                document.getElementById('loaiHangError').innerHTML = 'Loại hàng không được bỏ trống';
+            }
+
+            if (donGia.trim() === "") {
+                document.getElementById('donGiaError').innerHTML = 'Đơn giá không được bỏ trống';
+            }else if (donGia < 0) {
+                document.getElementById('donGiaError').innerHTML = 'Đơn giá lớn hơn 0';
+            }
+
+            if (soLuong.trim() === "") {
+                document.getElementById('soLuongError').innerHTML = 'Số lượng không được bỏ trống';
+            } else if (soLuong < 0) {
+                document.getElementById('soLuongError').innerHTML = 'Số lượng lớn hơn 0';
+            }
+
+            if (thanhTien.trim() === "") {
+                document.getElementById('thanhTienError').innerHTML = 'Thành tiền không được bỏ trống';
+            }
+
+            if (!diaChi) {
+                document.getElementById('diaChiError').innerHTML = 'Nơi nhận hàng không được bỏ trống';
+            }
+        }
+
+        function updateShippingFee(fee) {
+            document.getElementById("vanchuyen").value = fee;
+        }
+        function calculateTotal() {
+            var donGia = parseFloat(document.getElementById('donGia').value) || 0;
+            var soLuong = parseInt(document.getElementById('soLuong').value) || 0;
+            var diaChi = document.querySelector('input[name="diaChi"]:checked');
+            var vanchuyen = parseFloat(document.getElementById('vanchuyen').value) || 0;
+
+            if (diaChi) {
+                var thanhTien = donGia * soLuong + vanchuyen;
+                document.getElementById('thanhTien').value = thanhTien;
+            } else {
+                document.getElementById('thanhTien').value = "";
+            }
+        }
+        function resetErrors() {
+            var errorElements = document.getElementsByClassName("error");
+            for (var i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

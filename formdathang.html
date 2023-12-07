@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,18 @@
         }
     </style>
 </head>
+
 <body>
     <form id="productForm" onsubmit="validateForm(); return false">
         <div>
             <label for="tenSp">Tên sản phẩm</label>
             <input type="text" id="tenSp">
             <span id="tenSpError" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            <span id="emailError" class="error"></span>
         </div>
         <div>
             <label for="giaSp">Giá</label>
@@ -57,21 +64,22 @@
             var color = document.querySelector('input[name="color"]:checked');
 
             // validate
-            if(tenSp.length < 6 || tenSp.length > 20) {
+            if (tenSp.length < 6 || tenSp.length > 20) {
                 document.getElementById("tenSpError").innerHTML = "ten san pham chi tu 6 - 20 ki tu"
             }
-            if (giaSp <= 0 ) {
+            
+            if (giaSp <= 0) {
                 document.getElementById("giaSpError").innerHTML = "Gia san pham lon hon 0"
                 giaSp.value = 0
             }
-            
+
             if (isNaN(giaKm) || giaKm <= 0 || giaKm >= giaSp) {
                 document.getElementById("giaKmError").innerHTML = "Gia khuyen mai lon hon 0 va be hon gia san pham"
             }
-            if(nsx === "") {
+            if (nsx === "") {
                 document.getElementById("nsxError").innerHTML = "khong duoc bo trong"
             }
-            if(!color) {
+            if (!color) {
                 document.getElementById("colorError").innerHTML = "khong duoc bo trong"
             }
         }
@@ -83,4 +91,5 @@
         }
     </script>
 </body>
+
 </html>

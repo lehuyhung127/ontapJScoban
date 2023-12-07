@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div style="border: 1px solid red;">
         <div>
-             <label for="loaiSp">Loại sản phẩm</label>
-             <select name="" id="loaiSp">
+            <label for="loaiSp">Loại sản phẩm</label>
+            <select name="" id="loaiSp">
                 <option value="" hidden>Mời chọn loại</option>
                 <option value="1000">Loai 1 </option>
                 <option value="2000">Loai 2</option>
                 <option value="3000">Loai 3</option>
-             </select>
+            </select>
         </div>
         <div>
             <label for="giaSp">Gia</label>
@@ -40,45 +42,46 @@
             <input type="number" name="" id="thanhtien" readonly>
         </div>
     </div>
-   <!-- <script src="./mainForm.js"></script> -->
-   <script>
-    let loaiSp = document.querySelector("#loaiSp")
-let giaSp = document.querySelector("#giaSp")
-let slsp = document.querySelector("#slsp")
-let noithanh = document.querySelector("#noithanh")
-let ngoaithanh = document.querySelector("#ngoaithanh")
-let vanchuyen = document.querySelector("#vanchuyen")
-let thanhtien = document.querySelector("#thanhtien")
-// thanh tien
-function tinhTien() {
-    thanhtien.value = Number(giaSp.value) * Number(slsp.value) + Number(vanchuyen.value)
-}
-// chon loai nao se tu dong add gia loai day vao gia san pham
-loaiSp.addEventListener("change", function () {
-    giaSp.value = loaiSp.value
-    tinhTien()
-})
+    <!-- <script src="./mainForm.js"></script> -->
+    <script>
+        let loaiSp = document.querySelector("#loaiSp")
+        let giaSp = document.querySelector("#giaSp")
+        let slsp = document.querySelector("#slsp")
+        let noithanh = document.querySelector("#noithanh")
+        let ngoaithanh = document.querySelector("#ngoaithanh")
+        let vanchuyen = document.querySelector("#vanchuyen")
+        let thanhtien = document.querySelector("#thanhtien")
+        // thanh tien
+        function tinhTien() {
+            thanhtien.value = Number(giaSp.value) * Number(slsp.value) + Number(vanchuyen.value)
+        }
+        // chon loai nao se tu dong add gia loai day vao gia san pham
+        loaiSp.addEventListener("change", function () {
+            giaSp.value = loaiSp.value
+            tinhTien()
+        })
 
-// k cho so luong ve so am
-slsp.addEventListener("change", function () {
-    if (slsp.value < 0) {
-        slsp.value = 0
-        tinhTien()
-    }
-})
+        // k cho so luong ve so am
+        slsp.addEventListener("change", function () {
+            if (slsp.value < 0) {
+                slsp.value = 0
+                tinhTien()
+            }
+        })
 
-// click noi thanh se 0 dong
-noithanh.addEventListener("click", function () {
-    vanchuyen.value = 0
-    tinhTien()
-})
-// click ngoai thanh se 5000 dong
-ngoaithanh.addEventListener("click", function () {
-    vanchuyen.value = 5000
-    tinhTien()
-})
+        // click noi thanh se 0 dong
+        noithanh.addEventListener("click", function () {
+            vanchuyen.value = 0
+            tinhTien()
+        })
+        // click ngoai thanh se 5000 dong
+        ngoaithanh.addEventListener("click", function () {
+            vanchuyen.value = 5000
+            tinhTien()
+        })
 
 
-   </script>
+    </script>
 </body>
+
 </html>
